@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, Users } from 'lucide-react';
+import { ArrowDown, Users, PlayCircle } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 
 const teamMembers = [
@@ -34,6 +34,13 @@ export const Hero: React.FC = () => {
     setMousePos({ x: moveX, y: moveY });
   };
 
+  const scrollToContent = () => {
+    const element = document.getElementById('history');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section 
       onMouseMove={handleMouseMove}
@@ -64,14 +71,24 @@ export const Hero: React.FC = () => {
         </ScrollReveal>
 
         <ScrollReveal delay={400}>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 font-light leading-relaxed h-8">
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light leading-relaxed h-8">
             In a <span className="text-brand-glow font-semibold border-r-2 border-brand-glow pr-1 animate-pulse">{displayText}</span>
           </p>
         </ScrollReveal>
 
+        <ScrollReveal delay={500}>
+          <button 
+            onClick={scrollToContent}
+            className="mb-12 px-8 py-4 bg-brand-primary text-white rounded-full font-bold text-lg shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.8)] hover:scale-105 transition-all duration-300 flex items-center gap-2 mx-auto group"
+          >
+            Start Journey
+            <PlayCircle size={20} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </ScrollReveal>
+
         <ScrollReveal delay={600}>
           <p className="text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Successful management is not a fixed science but an <span className="text-white font-semibold">art</span> that depends entirely on the external environment. Explore the blueprint for leading in a rapidly changing world.
+            Successful management is not a fixed science but an <span className="text-white font-semibold">art</span> that depends entirely on the external environment.
           </p>
         </ScrollReveal>
 
@@ -96,7 +113,7 @@ export const Hero: React.FC = () => {
         </ScrollReveal>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-brand-accent/50">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-brand-accent/50 cursor-pointer" onClick={scrollToContent}>
         <ArrowDown size={32} />
       </div>
     </section>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Menu, X, ChevronUp } from 'lucide-react';
+import { Menu, X, ChevronUp, Link as LinkIcon, Check } from 'lucide-react';
 import { Hero } from './components/Hero';
 import { HistorySection } from './components/HistorySection';
 import { EnvironmentSection } from './components/EnvironmentSection';
@@ -11,6 +11,7 @@ import { BackgroundParticles } from './components/BackgroundParticles';
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +27,12 @@ const App: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
   };
 
   const navItems = [
@@ -65,6 +72,18 @@ const App: React.FC = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
               </button>
             ))}
+            
+            {/* Share Link Button */}
+            <button 
+              onClick={handleCopyLink}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 group ml-4"
+              title="Copy Link"
+            >
+              {linkCopied ? <Check size={16} className="text-green-400" /> : <LinkIcon size={16} className="text-brand-accent group-hover:scale-110 transition-transform" />}
+              <span className="text-xs font-medium text-gray-300 group-hover:text-white">
+                {linkCopied ? 'Copied!' : 'Link'}
+              </span>
+            </button>
           </div>
 
           {/* Mobile Nav Toggle */}
@@ -77,7 +96,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden absolute top-full left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-64' : 'max-h-0'}`}>
+        <div className={`md:hidden absolute top-full left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-80' : 'max-h-0'}`}>
           <div className="flex flex-col p-6 gap-4">
             {navItems.map((item) => (
               <button
@@ -88,6 +107,13 @@ const App: React.FC = () => {
                 {item.label}
               </button>
             ))}
+            <button 
+              onClick={handleCopyLink}
+              className="flex items-center gap-2 text-gray-400 hover:text-white mt-4 pt-4 border-t border-white/10"
+            >
+               {linkCopied ? <Check size={18} className="text-green-400" /> : <LinkIcon size={18} />}
+               <span>{linkCopied ? 'Link Copied' : 'Copy Website Link'}</span>
+            </button>
           </div>
         </div>
       </nav>
