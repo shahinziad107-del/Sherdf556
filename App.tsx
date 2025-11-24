@@ -5,6 +5,7 @@ import { HistorySection } from './components/HistorySection';
 import { EnvironmentSection } from './components/EnvironmentSection';
 import { StructureSection } from './components/StructureSection';
 import { CultureSection } from './components/CultureSection';
+import { DownloadsSection } from './components/DownloadsSection';
 import { Footer } from './components/Footer';
 import { BackgroundParticles } from './components/BackgroundParticles';
 
@@ -40,6 +41,7 @@ const App: React.FC = () => {
     { id: 'environment', label: 'Environment' },
     { id: 'structure', label: 'Structure' },
     { id: 'culture', label: 'Culture' },
+    { id: 'downloads', label: 'Downloads' },
   ];
 
   return (
@@ -125,6 +127,7 @@ const App: React.FC = () => {
           <EnvironmentSection />
           <StructureSection />
           <CultureSection />
+          <DownloadsSection />
         </div>
       </main>
 
